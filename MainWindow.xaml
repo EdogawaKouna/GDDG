@@ -1,0 +1,154 @@
+﻿<Window x:Class="GameDesignDocGenerator.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="🎮 游戏机制文案生成器 v1.0"
+        Height="800" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Microsoft YaHei">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+            <TextBlock Text="🎮 游戏机制文案生成器" FontSize="24" FontWeight="Bold"
+                       Foreground="#FFD700" HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- 输入区 -->
+        <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="🎯 游戏类型" FontWeight="Bold" Margin="0,0,0,3"/>
+                    <TextBox x:Name="txtGameType" Grid.Row="1" Height="30"
+                             Text=""/>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="🌍 背景设定" FontWeight="Bold" Margin="0,0,0,3"/>
+                    <TextBox x:Name="txtSetting" Grid.Row="1" Height="30"
+                             Text=""/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="💡 核心特色" FontWeight="Bold" Margin="0,0,0,3"/>
+                    <TextBox x:Name="txtCoreFeature" Grid.Row="1" Height="30" TextChanged="txtCoreFeature_TextChanged"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="📱 目标平台" FontWeight="Bold" Margin="0,0,0,3"/>
+                    <TextBox x:Name="txtPlatform" Grid.Row="1" Height="30" Text=""/>
+                </Grid>
+
+                <!-- 生成按钮 + 进度条 -->
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="5,10,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnGenerate" Content="🚀 生成文档" Width="120" Height="35"
+                            Background="#FFD700" FontWeight="Bold" Click="BtnGenerate_Click"/>
+                    <TextBlock x:Name="txtStatus" Grid.Column="1" Text="就绪" 
+                               VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#666"/>
+                    <ProgressBar x:Name="progressBar" Grid.Column="2" Width="200" Height="20"
+                                 Minimum="0" Maximum="7" Visibility="Collapsed"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- 输出区：Tab 控件显示各模块 -->
+        <TabControl Grid.Row="2" x:Name="tabOutput" Margin="0,5,0,5">
+            <TabItem Header="📄 核心玩法规则">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtCoreRules" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="💰 经济系统">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtEconomy" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="⚔️ 战斗/数值框架">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtCombat" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="📈 成长系统">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtProgression" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="💎 商业化方案">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtMonetization" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="🏆 竞品分析">
+                <ScrollViewer>
+                    <TextBlock x:Name="txtCompetitor" TextWrapping="Wrap" Padding="10" FontSize="13"/>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- 底部：迭代修改 + 导出 -->
+        <Border Grid.Row="3" Background="#F0F0F0" CornerRadius="8" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="迭代修改:" VerticalAlignment="Center" FontWeight="Bold" Margin="5,0"/>
+                <ComboBox x:Name="cmbModule" Grid.Column="1" Margin="5,0" Height="30"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="核心玩法规则"/>
+                    <ComboBoxItem Content="经济系统"/>
+                    <ComboBoxItem Content="战斗/数值框架"/>
+                    <ComboBoxItem Content="成长系统"/>
+                    <ComboBoxItem Content="商业化方案"/>
+                    <ComboBoxItem Content="竞品分析"/>
+                </ComboBox>
+                <TextBox x:Name="txtChange" Grid.Column="2" Width="200" Height="30" Margin="5,0"
+                         ToolTip="输入修改要求"/>
+                <Button x:Name="btnIterate" Grid.Column="3" Content="🔄 应用修改" Width="100" Height="30"
+                        Margin="5,0" Click="BtnIterate_Click"/>
+                <Button x:Name="btnExport" Grid.Column="4" Content="📁 导出全部" Width="100" Height="30"
+                        Margin="5,0" Background="#4CAF50" Foreground="White" Click="BtnExport_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
